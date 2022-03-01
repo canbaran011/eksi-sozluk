@@ -28,7 +28,7 @@ class GetEksiApp extends StatelessWidget {
       navigatorObservers: [GetObserver()],
       theme: ThemeData(
           scrollbarTheme: const ScrollbarThemeData().copyWith(
-            thumbColor: MaterialStateProperty.all(Colors.blue[500]),
+            thumbColor: MaterialStateProperty.all(Colors.green[500]),
           ),
           primarySwatch: Colors.blue,
         ), 
