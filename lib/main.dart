@@ -1,6 +1,7 @@
 import 'package:eksi_sozluk/core/lang/app_translations.dart';
 
 import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
+import 'package:eksi_sozluk/view/maintab/view/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -32,7 +33,7 @@ class GetEksiApp extends StatelessWidget {
           ),
           primarySwatch: Colors.blue,
         ), 
-      home: TitleView(),
+      home: MainTabView(),
 
       
     );

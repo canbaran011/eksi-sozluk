@@ -17,7 +17,7 @@ class TitleService extends ITitleService with NetworkHelper {
   @override
   Future<List<TitleModel>?> fetchTitleListService() async {
     final response = await networkManager.send<TitleModel, List<TitleModel>>(
-        'http://e1ad-31-223-84-172.ngrok.io/api/basliklar',
+        'https://eksisozluk-api-f.herokuapp.com/api/basliklar',
         parseModel: TitleModel(),
         method: RequestType.GET);
 
@@ -28,7 +28,7 @@ class TitleService extends ITitleService with NetworkHelper {
   Future<TitleDetailModel?> fetchTitleDetail(String slug) async {
     final response =
         await networkManager.send<TitleDetailModel, TitleDetailModel>(
-            'http://e1ad-31-223-84-172.ngrok.io/api/baslik' + slug,
+            'https://eksisozluk-api-f.herokuapp.com/api/baslik' + slug,
             parseModel: TitleDetailModel(),
             method: RequestType.GET);
 

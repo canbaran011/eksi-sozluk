@@ -14,7 +14,7 @@ class TitleDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ctrl.getTitleDetail();
+    
     return Scaffold(
       appBar: AppBar(
           title: Text('Detail'),
@@ -28,18 +28,7 @@ class TitleDetailView extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: Column(
-        children: [getTitle(context), getObservableList(context)],
-      ),
-    );
-  }
-
-  getTitle(BuildContext context) {
-    Container(
-      margin: context.paddingLow,
-      height: Get.width * 0.3,
-      child: AutoSizeText(
-        ctrl.titleDetail!.title ?? 'loading',
-        maxLines: 2,
+        children: [getObservableList(context)],
       ),
     );
   }
@@ -49,53 +38,75 @@ class TitleDetailView extends StatelessWidget {
         ctrl.isLoading.value ? buildCenterLoading() : buildListBody(context));
   }
 
-  buildCenterLoading() => Center(child: CircularProgressIndicator.adaptive());
+  buildCenterLoading() => Container(
+    alignment: Alignment.center,
+    color: Colors.grey[800],
+    width: Get.width,
+    height: Get.height * 0.9,
+    child: Center(child: CircularProgressIndicator.adaptive(
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+
+    )));
 
   buildListBody(BuildContext context) {
     var refreshKey = GlobalKey<RefreshIndicatorState>();
-    return Container(
-        alignment: Alignment.center,
-        height: Get.height,
-        child: ctrl.titleDetail == null
-            ? RefreshIndicator(
-                onRefresh: () async {
-                  await ctrl.getTitleDetail();
-                },
-                child: Stack(
-                  children: <Widget>[
-                    ListView(),
-                    Center(
-                      child: Text(
-                        'no title detail',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
-                      ),
+    return Column(
+      children: [
+        Container(
+          margin: context.paddingLow,
+          child: AutoSizeText(
+            ctrl.titleDetail.title ?? 'loading title',
+            maxLines: 2,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+            color: Colors.black,
+            alignment: Alignment.center,
+            height: Get.height * 0.85,
+            child: ctrl.titleDetail == null
+                ? RefreshIndicator(
+                    onRefresh: () async {
+                      await ctrl.getTitleDetail();
+                    },
+                    child: Stack(
+                      children: <Widget>[
+                        ListView(),
+                        Center(
+                          child: Text(
+                            'no title detail',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            : RefreshIndicator(
-                key: refreshKey,
-                onRefresh: () async {
-                  await ctrl.getTitleDetail();
-                },
-                child: Scrollbar(
-                  isAlwaysShown: true,
-                  radius: Radius.circular(50),
-                  thickness: Get.width * 0.02,
-                  child: ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: ctrl.titleDetail!.entries!.length,
-                      itemBuilder: (context, index) {
-                        var titleDetail = ctrl.titleDetail!.entries![index];
-                        return getCardListWidget(context, titleDetail);
-                      }),
-                ),
-              ));
+                  )
+                : RefreshIndicator(
+                    key: refreshKey,
+                    onRefresh: () async {
+                      await ctrl.getTitleDetail();
+                    },
+                    child: Scrollbar(
+                      isAlwaysShown: true,
+                      radius: Radius.circular(50),
+                      thickness: Get.width * 0.02,
+                      child: ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: ctrl.titleDetail.entries?.length,
+                          itemBuilder: (context, index) {
+                            var titleDetail = ctrl.titleDetail.entries![index];
+                            return getCardListWidget(context, titleDetail);
+                          }),
+                    ),
+                  )),
+      ],
+    );
   }
 
   getCardListWidget(BuildContext context, Entries titleDetail) {
     return Card(
+      color: Colors.grey[800],
       child: Column(
         children: [
           Container(

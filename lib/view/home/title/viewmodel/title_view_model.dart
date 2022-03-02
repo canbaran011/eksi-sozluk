@@ -9,7 +9,7 @@ class TitleViewModel extends GetxController {
 
   var isLoading = false.obs;
   var titleList = <TitleModel>[].obs;
-  TitleDetailModel? titleDetail;
+  var titleDetail = TitleDetailModel();
   var slug = ''.obs;
 
   void changeLoading() {
@@ -27,6 +27,7 @@ class TitleViewModel extends GetxController {
     changeLoading();
     if (slug.isNotEmpty) {
       final response = await titleService.fetchTitleDetail(slug.value);
+      titleDetail = response!;
     }
     changeLoading();
   }

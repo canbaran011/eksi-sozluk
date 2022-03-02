@@ -31,11 +31,22 @@ class TitleView extends StatelessWidget {
         ctrl.isLoading.value ? buildCenterLoading() : buildListBody(context));
   }
 
-  buildCenterLoading() => Center(child: CircularProgressIndicator.adaptive());
+  buildCenterLoading() => Container(
+     alignment: Alignment.center,
+    color: Colors.grey[800],
+    width: Get.width,
+    height: Get.height * 0.9,
+    child: Center(
+      child: CircularProgressIndicator.adaptive(
+        backgroundColor: Colors.grey ,
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green) ,
+        )),
+  );
 
   buildListBody(BuildContext context) {
     var refreshKey = GlobalKey<RefreshIndicatorState>();
     return Container(
+        color: Colors.black,
         alignment: Alignment.center,
         height: Get.height,
         child: ctrl.titleList.isEmpty
@@ -78,12 +89,15 @@ class TitleView extends StatelessWidget {
 
   Widget getCardListWidget(BuildContext context, TitleModel title) {
     return Card(
+      color: Colors.grey[850],
       child: Column(
         children: <Widget>[
           ListTile(
             onTap: () async {
               print(title.slug ?? 'BOS BUTTON');
-              //Get.to(TitleDetailView());
+              ctrl.slug.value = title.slug!;
+              await ctrl.getTitleDetail();
+              Get.to(TitleDetailView());
             },
             isThreeLine: true,
             leading: Icon(
