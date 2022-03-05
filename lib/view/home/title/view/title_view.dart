@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eksi_sozluk/core/constants/app_constants.dart';
+
 import 'package:eksi_sozluk/core/network/vexana_manager.dart';
 import 'package:eksi_sozluk/view/home/title/model/title_model.dart';
 import 'package:eksi_sozluk/view/home/title/service/title_service.dart';
@@ -22,7 +22,7 @@ class TitleView extends StatelessWidget {
         backgroundColor: Colors.green,
         title: Text('EKSISOZLUK'),
       ),
-      body: buildObservableBody(context),
+      body: buildObservableBody(context)
     );
   }
 
@@ -32,16 +32,16 @@ class TitleView extends StatelessWidget {
   }
 
   buildCenterLoading() => Container(
-     alignment: Alignment.center,
-    color: Colors.grey[800],
-    width: Get.width,
-    height: Get.height * 0.9,
-    child: Center(
-      child: CircularProgressIndicator.adaptive(
-        backgroundColor: Colors.grey ,
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.green) ,
+        alignment: Alignment.center,
+        color: Colors.grey[800],
+        width: Get.width,
+        height: Get.height * 0.9,
+        child: Center(
+            child: CircularProgressIndicator.adaptive(
+          backgroundColor: Colors.grey,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
         )),
-  );
+      );
 
   buildListBody(BuildContext context) {
     var refreshKey = GlobalKey<RefreshIndicatorState>();

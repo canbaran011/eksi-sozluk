@@ -1,23 +1,38 @@
+import 'package:eksi_sozluk/view/home/suser/suser_vier.dart';
 import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
 import 'package:eksi_sozluk/view/maintab/viewmodel/maintab_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainTabView extends GetView<MainTabViewModel> {
+class MainTabView extends StatelessWidget {
   MainTabView({Key? key}) : super(key: key);
 
   final ctrl = Get.put(MainTabViewModel());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: buildObserverBuildBody(context),
-      bottomNavigationBar: getBottomNavigationBar(context),
-    );
+    return GetBuilder<MainTabViewModel>(builder: (controller) {
+      return Scaffold(
+        body: SafeArea(
+            child: IndexedStack(
+          index: ctrl.tabIndex,
+          children: [
+            TitleView(),
+            SuserView(),
+            SuserView(),
+            SuserView(),
+          ],
+        )),
+        bottomNavigationBar: getBottomNavigationBar(context),
+        
+      );
+    });
   }
 
   getBottomNavigationBar(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Colors.black38,
+      elevation: 15.0,      
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(Icons.receipt_long_outlined,
@@ -27,58 +42,39 @@ class MainTabView extends GetView<MainTabViewModel> {
               color: Colors.green,
               size: 30,
             ),
-            label: 'baslik'),
+            label: 'başlık'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined,
+            icon: Icon(Icons.history_toggle_off,
                 color: Colors.grey.shade400, size: 30),
             activeIcon: Icon(
-              Icons.receipt_long_outlined,
+              Icons.history_toggle_off,
               color: Colors.green,
               size: 30,
             ),
-            label: 'baslik'),
+            label: 'debe'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined,
+            icon: Icon(Icons.search,
                 color: Colors.grey.shade400, size: 30),
             activeIcon: Icon(
-              Icons.receipt_long_outlined,
+              Icons.search,
               color: Colors.green,
               size: 30,
             ),
-            label: 'baslik'),
+            label: 'ara'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined,
+            icon: Icon(Icons.wb_sunny,
                 color: Colors.grey.shade400, size: 30),
             activeIcon: Icon(
-              Icons.receipt_long_outlined,
+              Icons.wb_sunny,
               color: Colors.green,
               size: 30,
             ),
-            label: 'baslik'),
+            label: 'baslik4'),
       ],
-      currentIndex: ctrl.tabIndex.value,
-      onTap: (newIndex) {
-        ctrl.changeTabIndex(newIndex);
-      },
+      currentIndex: ctrl.tabIndex,
+      onTap: ctrl.changeTabIndex,
       selectedItemColor: Colors.green,
       showSelectedLabels: true,
     );
-  }
-
-  buildObserverBuildBody(BuildContext context) {
-    return Obx(() => ctrl.isLoading.value ? buildCenterLoading() : getTab());
-  }
-
-  Center buildCenterLoading() =>
-      Center(child: CircularProgressIndicator.adaptive());
-
-  getTab() {
-    
-    switch (ctrl.tabIndex.value) {
-      case :
-        
-        break;
-      default:
-    }
   }
 }

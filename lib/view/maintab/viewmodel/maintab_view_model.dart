@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 
 class MainTabViewModel extends GetxController {
-  var tabIndex = 0.obs;
+  var tabIndex = 0;
   var isLoading = false.obs;
 
-  changeTabIndex(int index) {
-    tabIndex.value = index;
+  void changeTabIndex(int index) {
+    print('CLICKEDDDDDDD');
+    tabIndex = index;
     update();
   }
 }
