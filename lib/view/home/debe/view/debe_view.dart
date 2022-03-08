@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eksi_sozluk/view/home/debe/service/debe_service.dart';
+import 'package:eksi_sozluk/view/home/debe/viewmodel/debe_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +13,7 @@ import '../../title/viewmodel/title_view_model.dart';
 class DebeView extends StatelessWidget {
   DebeView({Key? key}) : super(key: key);
   final ctrl = Get.put(
-      TitleViewModel(TitleService(VexanaManager.instance.networkManager)));
+      DebeViewModel(DebeService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class DebeView extends StatelessWidget {
         color: Colors.black,
         alignment: Alignment.center,
         height: Get.height,
-        child: ctrl.titleList.isEmpty
+        child: ctrl.debeList.isEmpty
             ? RefreshIndicator(
                 onRefresh: () async {
                   await ctrl.getDebeItems();
@@ -78,9 +80,9 @@ class DebeView extends StatelessWidget {
                   thickness: Get.width * 0.02,
                   child: ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: ctrl.titleList.length,
+                      itemCount: ctrl.debeList.length,
                       itemBuilder: (context, index) {
-                        var person = ctrl.titleList[index];
+                        var person = ctrl.debeList[index];
                         return getCardListWidget(context, person);
                       }),
                 ),
@@ -96,7 +98,7 @@ class DebeView extends StatelessWidget {
             onTap: () async {
               //print(title.slug ?? 'BOS BUTTON');
               ctrl.slug.value = title.slug!;
-              await ctrl.getTitleDetail();
+              await ctrl.getDebeDetail();
               Get.to(TitleDetailView());
             },
             isThreeLine: true,

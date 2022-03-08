@@ -9,13 +9,13 @@ import 'package:get/get.dart';
 
 class TitleView extends StatelessWidget {
   TitleView({Key? key}) : super(key: key);
-  
+
   final ctrl = Get.put(
       TitleViewModel(TitleService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
-   
+    ctrl.getTitleItems();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -42,9 +42,8 @@ class TitleView extends StatelessWidget {
         )),
       );
 
-  buildListBody(BuildContext context) async {
+  buildListBody(BuildContext context) {
     var refreshKey = GlobalKey<RefreshIndicatorState>();
-    await ctrl.getTitleItems();
     return Container(
         color: Colors.black,
         alignment: Alignment.center,
@@ -73,7 +72,6 @@ class TitleView extends StatelessWidget {
                   await ctrl.getTitleItems();
                 },
                 child: Scrollbar(
-                  
                   isAlwaysShown: true,
                   radius: Radius.circular(50),
                   thickness: Get.width * 0.02,
@@ -94,9 +92,8 @@ class TitleView extends StatelessWidget {
         children: <Widget>[
           ListTile(
             onTap: () async {
-              
               ctrl.slug.value = title.slug!;
-              await ctrl.getTitleDetail();
+              ctrl.getTitleDetail();
               Get.to(TitleDetailView());
             },
             isThreeLine: true,

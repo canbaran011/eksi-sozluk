@@ -9,7 +9,6 @@ abstract class ITitleService {
 
   Future<List<TitleModel>?> fetchTitleListService();
   Future<TitleDetailModel?> fetchTitleDetail(String slug);
-  Future<List<TitleModel>?> fetchDebeItems();
 }
 
 class TitleService extends ITitleService with NetworkHelper {
@@ -36,13 +35,5 @@ class TitleService extends ITitleService with NetworkHelper {
     return response.data;
   }
 
-  @override
-  Future<List<TitleModel>?> fetchDebeItems() async {
-    final response = await networkManager.send<TitleModel, List<TitleModel>>(
-        'https://eksisozluk-api-f.herokuapp.com/api/debe',
-        parseModel: TitleModel(),
-        method: RequestType.GET);
 
-    return response.data ?? [];
-  }
 }

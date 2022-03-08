@@ -27,7 +27,7 @@ class TitleViewModel extends GetxController {
   Future<void> getTitleDetail() async {
     changeLoading();
     if (slug.isNotEmpty) {
-      //print('DETAIL==========================');
+      
       final response = await titleService.fetchTitleDetail(slug.value);
       if (response != null) {
         titleDetail = response;
@@ -39,16 +39,5 @@ class TitleViewModel extends GetxController {
     changeLoading();
   }
 
-  Future<void> getDebeItems() async {
-    changeLoading();
-    final response = await titleService.fetchDebeItems();
-    if (response != null) {
-      titleList.value = response;
-    } else {
-      Get.snackbar('Error', 'There are some errors',
-          backgroundColor: Colors.red, colorText: Colors.white);
-    }
 
-    changeLoading();
-  }
 }

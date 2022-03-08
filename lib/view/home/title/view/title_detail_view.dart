@@ -56,7 +56,7 @@ class TitleDetailView extends StatelessWidget {
             alignment: Alignment.center,
             height: Get.height * 0.85,
             child: ctrl.titleDetail.entries!.isEmpty
-               ? RefreshIndicator(
+                ? RefreshIndicator(
                     onRefresh: () async {
                       await ctrl.getTitleDetail();
                     },
