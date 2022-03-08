@@ -1,8 +1,8 @@
-import 'package:eksi_sozluk/view/home/title/model/entries.dart';
+import 'entries.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-part 'title_detail.g.dart';
+part 'title_detail_model.g.dart';
 
 @JsonSerializable()
 class TitleDetailModel extends INetworkModel<TitleDetailModel> {
@@ -15,8 +15,6 @@ class TitleDetailModel extends INetworkModel<TitleDetailModel> {
   int? currentPage;
   List<String>? tags;
   List<Entries>? entries;
-
-  
 
   @override
   TitleDetailModel fromJson(Map<String, dynamic> json) {

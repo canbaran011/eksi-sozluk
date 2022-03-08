@@ -1,28 +1,29 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import '../../../../core/network/vexana_manager.dart';
-import '../model/title_model.dart';
-import '../service/title_service.dart';
-import 'title_detail_view.dart';
-import '../viewmodel/title_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TitleView extends StatelessWidget {
-  TitleView({Key? key}) : super(key: key);
-  
+import '../../../../core/network/vexana_manager.dart';
+import '../../title/model/title_model.dart';
+import '../../title/service/title_service.dart';
+import '../../title/view/title_detail_view.dart';
+import '../../title/viewmodel/title_view_model.dart';
+
+class DebeView extends StatelessWidget {
+  DebeView({Key? key}) : super(key: key);
   final ctrl = Get.put(
       TitleViewModel(TitleService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
-   
+    ctrl.getDebeItems();
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.green,
-          title: Text('EKSISOZLUK'),
-        ),
-        body: buildObservableBody(context));
+      appBar: AppBar(
+        centerTitle: true,
+        title: Icon(Icons.history),
+        backgroundColor: Colors.green,
+      ),
+      body: buildObservableBody(context),
+    );
   }
 
   buildObservableBody(BuildContext context) {
@@ -42,9 +43,8 @@ class TitleView extends StatelessWidget {
         )),
       );
 
-  buildListBody(BuildContext context) async {
+  buildListBody(BuildContext context) {
     var refreshKey = GlobalKey<RefreshIndicatorState>();
-    await ctrl.getTitleItems();
     return Container(
         color: Colors.black,
         alignment: Alignment.center,
@@ -52,7 +52,7 @@ class TitleView extends StatelessWidget {
         child: ctrl.titleList.isEmpty
             ? RefreshIndicator(
                 onRefresh: () async {
-                  await ctrl.getTitleItems();
+                  await ctrl.getDebeItems();
                 },
                 child: Stack(
                   children: <Widget>[
@@ -70,14 +70,14 @@ class TitleView extends StatelessWidget {
             : RefreshIndicator(
                 key: refreshKey,
                 onRefresh: () async {
-                  await ctrl.getTitleItems();
+                  await ctrl.getDebeItems();
                 },
                 child: Scrollbar(
-                  
                   isAlwaysShown: true,
                   radius: Radius.circular(50),
                   thickness: Get.width * 0.02,
                   child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: ctrl.titleList.length,
                       itemBuilder: (context, index) {
                         var person = ctrl.titleList[index];
@@ -87,14 +87,14 @@ class TitleView extends StatelessWidget {
               ));
   }
 
-  Widget getCardListWidget(BuildContext context, TitleModel title) {
+  getCardListWidget(BuildContext context, TitleModel title) {
     return Card(
       color: Colors.grey[850],
       child: Column(
         children: <Widget>[
           ListTile(
             onTap: () async {
-              
+              //print(title.slug ?? 'BOS BUTTON');
               ctrl.slug.value = title.slug!;
               await ctrl.getTitleDetail();
               Get.to(TitleDetailView());
@@ -104,8 +104,10 @@ class TitleView extends StatelessWidget {
               Icons.book,
               color: Colors.green,
             ),
-            title: AutoSizeText(title.title ?? '',
-                maxLines: 2, style: TextStyle(color: Colors.white38)),
+            title: AutoSizeText(
+              title.title ?? '',
+              maxLines: 2,
+            ),
             subtitle: Text(title.entryCount ?? ''),
           ),
         ],

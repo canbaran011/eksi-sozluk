@@ -7,7 +7,6 @@ abstract class AppTranslations {
   };
 }
 
-
 final Map<String, String> enUS = {'hello': 'Welcome !'};
 
 final Map<String, String> trTR = {'hello': 'Hoşgeldiniz !'};

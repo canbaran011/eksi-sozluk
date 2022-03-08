@@ -5,7 +5,7 @@ class MainTabViewModel extends GetxController {
   var isLoading = false.obs;
 
   void changeTabIndex(int index) {
-    print('CLICKEDDDDDDD');
+    //print('CLICKEDDDDDDD');
     tabIndex = index;
     update();
   }

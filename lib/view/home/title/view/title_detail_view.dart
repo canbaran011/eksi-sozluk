@@ -1,35 +1,26 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eksi_sozluk/core/extensions/context_extension.dart';
-import 'package:eksi_sozluk/core/network/vexana_manager.dart';
-import 'package:eksi_sozluk/view/home/title/model/entries.dart';
-import 'package:eksi_sozluk/view/home/title/service/title_service.dart';
-import 'package:eksi_sozluk/view/home/title/viewmodel/title_view_model.dart';
+import '../../../../core/extensions/context_extension.dart';
+import '../../../../core/network/vexana_manager.dart';
+import '../model/entries.dart';
+import '../service/title_service.dart';
+import '../viewmodel/title_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TitleDetailView extends StatelessWidget {
   TitleDetailView({Key? key}) : super(key: key);
+
   final ctrl = Get.put(
       TitleViewModel(TitleService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
           title: Text('Detail'),
           centerTitle: true,
           backgroundColor: Colors.green),
-      body: getBody(context),
-    );
-  }
-
-  getBody(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        children: [getObservableList(context)],
-      ),
+      body: getObservableList(context),
     );
   }
 
@@ -39,14 +30,14 @@ class TitleDetailView extends StatelessWidget {
   }
 
   buildCenterLoading() => Container(
-    alignment: Alignment.center,
-    color: Colors.grey[800],
-    width: Get.width,
-    height: Get.height * 0.9,
-    child: Center(child: CircularProgressIndicator.adaptive(
-      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-
-    )));
+      alignment: Alignment.center,
+      color: Colors.grey[800],
+      width: Get.width,
+      height: Get.height * 0.9,
+      child: Center(
+          child: CircularProgressIndicator.adaptive(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+      )));
 
   buildListBody(BuildContext context) {
     var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -64,8 +55,8 @@ class TitleDetailView extends StatelessWidget {
             color: Colors.black,
             alignment: Alignment.center,
             height: Get.height * 0.85,
-            child: ctrl.titleDetail == null
-                ? RefreshIndicator(
+            child: ctrl.titleDetail.entries!.isEmpty
+               ? RefreshIndicator(
                     onRefresh: () async {
                       await ctrl.getTitleDetail();
                     },
@@ -109,8 +100,23 @@ class TitleDetailView extends StatelessWidget {
       color: Colors.grey[800],
       child: Column(
         children: [
+          ListTile(
+            title: Text(titleDetail.body ?? 'loading'),
+            subtitle: Text(
+              titleDetail.author ?? '',
+              textAlign: TextAlign.right,
+            ),
+          ),
           Container(
-            child: Text(titleDetail.body ?? 'loading'),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(titleDetail.favCount ?? '0'),
+                Text(titleDetail.createdAt ?? 'tarih')
+              ],
+            ),
           )
         ],
       ),

@@ -1,8 +1,10 @@
-import 'package:eksi_sozluk/view/home/suser/suser_vier.dart';
-import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
-import 'package:eksi_sozluk/view/maintab/viewmodel/maintab_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../home/debe/view/debe_view.dart';
+import '../../home/suser/suser_vier.dart';
+import '../../home/title/view/title_view.dart';
+import '../viewmodel/maintab_view_model.dart';
 
 class MainTabView extends StatelessWidget {
   MainTabView({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class MainTabView extends StatelessWidget {
           index: ctrl.tabIndex,
           children: [
             TitleView(),
-            SuserView(),
+            DebeView(),
             SuserView(),
             SuserView(),
           ],
@@ -42,7 +44,7 @@ class MainTabView extends StatelessWidget {
               color: Colors.green,
               size: 30,
             ),
-            label: 'başlık'),
+            label: 'gündem'),
         BottomNavigationBarItem(
             icon: Icon(Icons.history_toggle_off,
                 color: Colors.grey.shade400, size: 30),

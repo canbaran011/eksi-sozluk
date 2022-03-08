@@ -1,7 +1,7 @@
-import 'package:eksi_sozluk/core/network/network_helper.dart';
-import 'package:eksi_sozluk/view/home/title/model/title_detail.dart';
-import 'package:eksi_sozluk/view/home/title/model/title_model.dart';
 import 'package:vexana/vexana.dart';
+import '../../../../core/network/network_helper.dart';
+import '../model/title_detail_model.dart';
+import '../model/title_model.dart';
 
 abstract class ITitleService {
   INetworkManager networkManager;
@@ -9,6 +9,7 @@ abstract class ITitleService {
 
   Future<List<TitleModel>?> fetchTitleListService();
   Future<TitleDetailModel?> fetchTitleDetail(String slug);
+  Future<List<TitleModel>?> fetchDebeItems();
 }
 
 class TitleService extends ITitleService with NetworkHelper {
@@ -33,5 +34,15 @@ class TitleService extends ITitleService with NetworkHelper {
             method: RequestType.GET);
 
     return response.data;
+  }
+
+  @override
+  Future<List<TitleModel>?> fetchDebeItems() async {
+    final response = await networkManager.send<TitleModel, List<TitleModel>>(
+        'https://eksisozluk-api-f.herokuapp.com/api/debe',
+        parseModel: TitleModel(),
+        method: RequestType.GET);
+
+    return response.data ?? [];
   }
 }
