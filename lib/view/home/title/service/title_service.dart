@@ -1,39 +1,30 @@
-import 'package:vexana/vexana.dart';
-import '../../../../core/network/network_helper.dart';
-import '../model/title_detail_model.dart';
-import '../model/title_model.dart';
+// import 'package:eksi_sozluk/core/network/network_manager.dart';
 
-abstract class ITitleService {
-  INetworkManager networkManager;
-  ITitleService(this.networkManager);
+// import '../../../../core/network/network_helper.dart';
+// import '../model/title_detail_model.dart';
+// import '../model/title_model.dart';
 
-  Future<List<TitleModel>?> fetchTitleListService();
-  Future<TitleDetailModel?> fetchTitleDetail(String slug);
-}
+// abstract class ITitleService {
+//   NetworkManager networkManager;
+//   ITitleService(this.networkManager);
 
-class TitleService extends ITitleService with NetworkHelper {
-  TitleService(INetworkManager networkManager) : super(networkManager);
+//   Future<List<TitleModel>?> fetchTitleListService();
+//   Future<TitleDetailModel?> fetchTitleDetail(String slug);
+  
+// }
 
-  @override
-  Future<List<TitleModel>?> fetchTitleListService() async {
-    final response = await networkManager.send<TitleModel, List<TitleModel>>(
-        'https://eksisozluk-api-f.herokuapp.com/api/basliklar',
-        parseModel: TitleModel(),
-        method: RequestType.GET);
+// class TitleService extends ITitleService  {
+//   TitleService(NetworkManager networkManager) : super(networkManager);
 
-    return response.data ?? [];
-  }
+//   @override
+//   Future<List<TitleModel>?> fetchTitleListService() async {
+    
+//   }
 
-  @override
-  Future<TitleDetailModel?> fetchTitleDetail(String slug) async {
-    final response =
-        await networkManager.send<TitleDetailModel, TitleDetailModel>(
-            'https://eksisozluk-api-f.herokuapp.com/api/baslik' + slug,
-            parseModel: TitleDetailModel(),
-            method: RequestType.GET);
-
-    return response.data;
-  }
+//   @override
+//   Future<TitleDetailModel?> fetchTitleDetail(String slug) async {
+    
+//   }
 
 
-}
+// }

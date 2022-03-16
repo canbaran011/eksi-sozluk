@@ -26,7 +26,15 @@ class VexanaManager {
 
         return handler.next(e);
       }),
+      
       options: BaseOptions(
+        headers: {
+        'Host': 'api.eksisozluk.com',
+        'User-Agent': 'okhttp/3.12.1',
+        'Connection': 'close',
+        'Accept-Encoding': 'gzip, deflate',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
 
           //maxRedirects: 1,
           )
