@@ -1,10 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:vexana/vexana.dart';
 
 
 part 'title_model.g.dart';
 
 @JsonSerializable()
-class TitleModel {
+class TitleModel extends INetworkModel<TitleModel> {
   int? id;
   String? title;
   String? slug;

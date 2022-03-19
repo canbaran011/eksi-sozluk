@@ -7,9 +7,9 @@ part of 'auth_model.dart';
 // **************************************************************************
 
 AuthModel _$AuthModelFromJson(Map<String, dynamic> json) => AuthModel()
-  ..success = json['success'] as bool?
-  ..message = json['message'] as String?
-  ..data = json['data'] == null
+  ..success = json['Success'] as bool?
+  ..message = json['Message'] as String?
+  ..data = json['Data'] == null
       ? null
       : AuthData.fromJson(json['data'] as Map<String, dynamic>);
 

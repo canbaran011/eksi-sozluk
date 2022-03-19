@@ -32,7 +32,7 @@ dependencies:
   get: ^4.6.1
   get_storage: ^2.0.3
   vexana: ^2.8.0
-  #dio: ^4.0.4
+  dio: ^4.0.4
   build_runner: ^2.1.7
   analyzer: '3.0.0'
   json_annotation: ^4.4.0
