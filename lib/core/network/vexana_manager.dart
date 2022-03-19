@@ -1,8 +1,9 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:vexana/vexana.dart';
 
 class VexanaManager {
   static VexanaManager? _instance;
-
+  final box = GetStorage();
   static VexanaManager get instance {
     if (_instance != null) return _instance!;
     _instance = VexanaManager._init();
@@ -26,12 +27,15 @@ class VexanaManager {
 
       return handler.next(e);
     }),
-    options: BaseOptions(baseUrl: 'https://api.eksisozluk.com', headers: {
+    options: BaseOptions(
+      baseUrl: 'https://api.eksisozluk.com', 
+      headers: {
       'Host': 'api.eksisozluk.com',
       'User-Agent': 'okhttp/3.12.1',
       'Connection': 'close',
+      'Api-Secret':'68f779c5-4d39-411a-bd12-cbcc50dc83dd',
       'Accept-Encoding': 'gzip, deflate',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded' //maybe not here on spesific reqeust
     }),
   );
 }

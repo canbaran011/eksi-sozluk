@@ -1,5 +1,7 @@
 
 import 'package:eksi_sozluk/core/network/vexana_manager.dart';
+import 'package:eksi_sozluk/view/home/suser/suser_vier.dart';
+import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
 import 'package:eksi_sozluk/view/maintab/service/maintab_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,10 +34,10 @@ class MainTabView extends StatelessWidget {
             child: IndexedStack(
           index: ctrl.tabIndex,
           children: [
-            // TitleView(),
-            // DebeView(),
-            // SuserView(),
-            // SuserView(),
+            TitleView(),
+            SuserView(),
+            SuserView(),
+            SuserView(),
           ],
         )),
         bottomNavigationBar: getBottomNavigationBar(context),
@@ -45,8 +47,8 @@ class MainTabView extends StatelessWidget {
 
   getBottomNavigationBar(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: Colors.black38,
-      elevation: 15.0,
+      backgroundColor: Colors.black,
+      elevation: 10.0,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(Icons.receipt_long_outlined,

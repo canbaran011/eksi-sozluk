@@ -1,25 +1,31 @@
+import 'package:eksi_sozluk/view/home/title/model/data.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
 
-part 'title_model.g.dart';
 
 @JsonSerializable()
 class TitleModel extends INetworkModel<TitleModel> {
-  int? id;
-  String? title;
-  String? slug;
-  String? entryCount;
+    TitleModel({
+        this.success,
+        this.message,
+        this.data,
+    });
 
-  TitleModel({this.id, this.title, this.slug, this.entryCount});
+    bool? success;
+    String? message;
+    Data? data;
 
-  @override
-  TitleModel fromJson(Map<String, dynamic> json) {
-    return _$TitleModelFromJson(json);
-  }
+    TitleModel fromJson(Map<String, dynamic> json) => TitleModel(
+        success: json["Success"] == null ? null : json["Success"],
+        message: json["Message"] == null ? null : json["Message"],
+        data: json["Data"] == null ? null : Data.fromJson(json["Data"]),
+    );
 
-  @override
-  Map<String, dynamic>? toJson() {
-    return _$TitleModelToJson(this);
-  }
+    Map<String, dynamic> toJson() => {
+        "Success": success == null ? null : success,
+        "Message": message == null ? null : message,
+        "Data": data == null ? null : data!.toJson(),
+    };
+
 }

@@ -1,20 +1,29 @@
+import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
+import 'package:eksi_sozluk/view/maintab/service/maintab_service.dart';
+import 'package:eksi_sozluk/view/maintab/viewmodel/maintab_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'core/lang/app_translations.dart';
+import 'core/network/vexana_manager.dart';
 import 'view/maintab/view/maintab_view.dart';
 
-void main() {
+Future<void> main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const GetEksiApp());
+  await GetStorage.init();
+  runApp(GetEksiApp());
 }
 
 
 class GetEksiApp extends StatelessWidget {
-  const GetEksiApp({ Key? key }) : super(key: key);
-
+   GetEksiApp({ Key? key }) : super(key: key);
+    final mainCTRL = Get.put(
+      MainTabViewModel(MainTabService(VexanaManager.instance.networkManager)));
   @override
   Widget build(BuildContext context) {
+    
+    mainCTRL.getAnonymousAccessToken();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Eksisozluk',
@@ -30,7 +39,7 @@ class GetEksiApp extends StatelessWidget {
           ),
           primarySwatch: Colors.blue,
         ), 
-      home: MainTabView(),
+      home: TitleView(),
 
       
     );

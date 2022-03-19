@@ -1,51 +1,32 @@
 {
-    "id": "6805531",
-    "disambiguation_titles": [],
-    "disambiguation_links": [],
-    "title": "türkiye'nin 61 yıldır ab'ye girememesinin sebebi",
-    "slug": "turkiyenin-61-yildir-abye-girememesinin-sebebi--6805531",
-    "total_page": 31,
-    "current_page": 1,
-    "tags": [
-        "siyaset",
-        "anket"
-    ],
-    "entries": [
-        {
-            "id": "134370434",
-            "body": "ab'ye girmenin siyaset ekonomisini, kayit disi ekonomiyi ve gri para ekonomisini yok edecek olmasindandir.",
-            "author": "more space",
-            "author_id": "1307222",
-            "fav_count": "140",
-            "created_at": "01.03.2022 16:12",
-            "updated_at": null
-        },
-        {
-            "id": "134370441",
-            "body": "hristiyan, sarı saç ve mavi gözlü olmamasıdır.<br><br>(bkz: <a class=\"b\" href=\"/?q=buras%c4%b1+afganistan+ya+da+%c4%b1rak+de%c4%9fil+ukrayna\">burası afganistan ya da ırak değil ukrayna</a>)<br><br>(bkz: <a class=\"b\" href=\"/?q=cbs+muhabirinin+ibretlik+ukrayna+sava%c5%9f%c4%b1+yorumu\">cbs muhabirinin ibretlik ukrayna savaşı yorumu</a>)",
-            "author": "ziplayankaplan",
-            "author_id": "1625480",
-            "fav_count": "272",
-            "created_at": "01.03.2022 16:13",
-            "updated_at": null
-        },
-        {
-            "id": "134370478",
-            "body": "müslüman nüfus.",
-            "author": "spes bona",
-            "author_id": "1798996",
-            "fav_count": "118",
-            "created_at": "01.03.2022 16:14",
-            "updated_at": null
-        },
-        {
-            "id": "134370506",
-            "body": "çok basit abnin çıkarına ab dışında ama ona da yakın ve ticaret partneri türkiye istediklerinden.",
-            "author": "bm778",
-            "author_id": "1285738",
-            "fav_count": "5",
-            "created_at": "01.03.2022 16:14",
-            "updated_at": null
-        }
-    ]
+    "Success": true,
+    "Message": null,
+    "Data": {
+        "Id": 7006370,
+        "Title": "doğal afet yardımlaşma ağı",
+        "Entries": [
+            {
+                "Id": 126528711,
+                "Content": "https://twitter.com/ahbapplatformu/status/1422843219101077504 (bkz: ahbap)\r\n\r\n[https://cdn.eksisozluk.com/2021/8/4/3/34a3jikm.jpg?key=34a3jikm görsel] nilüfer firmasının birlik için başlattığı hareket.\r\n\r\n[https://cdn.eksisozluk.com/2021/8/4/9/9m31v1b0.jpg?key=9m31v1b0 görsel] bodrum belediyesine iban yoluyla 'şartsız bağış' yazılarak destek olunabilecek iban bilgileri.\r\n\r\nhttps://twitter.com/ALANYABLD/status/1422517468011061248 alanya belediyesi'nin çağrısı\r\n\r\nmuğla  bölgesine yurtiçi kargo yardımları ücretsiz taşıyacak detay haberi.",
+                "Author": {
+                    "Nick": "alkolik imam",
+                    "Id": 420402
+                },
+                "Created": "2021-08-04T21:28:33.373",
+                "LastUpdated": "2021-08-06T15:11:00",
+                "IsFavorite": false,
+                "FavoriteCount": 72,
+                "Hidden": false,
+                "Active": true,
+                "CommentCount": 0,
+                "CommentSummary": null,
+                "AvatarUrl": null,
+                "Media": [
+                    "https://cdn.eksisozluk.com/2021/8/4/3/34a3jikm.jpg?key=34a3jikm",
+                    "https://cdn.eksisozluk.com/2021/8/4/9/9m31v1b0.jpg?key=9m31v1b0",
+                    "https://cdn.eksisozluk.com/2021/8/4/f/fofojxcr.jpg?key=fofojxcr"
+                ]
+            }
+        ]
+    }
 }

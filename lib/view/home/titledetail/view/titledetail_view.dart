@@ -1,31 +1,34 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eksi_sozluk/core/network/network_manager.dart';
-import '../../../../core/extensions/context_extension.dart';
-import '../../../../core/network/vexana_manager.dart';
-import '../model/entries.dart';
-import '../service/title_service.dart';
-import '../viewmodel/title_view_model.dart';
+import 'package:eksi_sozluk/core/network/vexana_manager.dart';
+import 'package:eksi_sozluk/view/home/titledetail/model/entry.dart';
+import 'package:eksi_sozluk/view/home/titledetail/service/titledetail_service.dart';
+import 'package:eksi_sozluk/view/home/titledetail/viewmodel/titledetail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:eksi_sozluk/core/extensions/context_extension.dart';
+import 'package:intl/intl.dart';
 
 class TitleDetailView extends StatelessWidget {
-  TitleDetailView({Key? key}) : super(key: key);
+  TitleDetailView({Key? key, required this.topicId}) : super(key: key);
+  final String topicId;
 
-  final ctrl = Get.put(
-      TitleViewModel(TitleService(VexanaManager.instance.networkManager)));
+  final ctrl = Get.put(TitleDetailViewModel(
+      TitleDetailService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
+    ctrl.getTitleDetail(topicId);
     return Scaffold(
       appBar: AppBar(
-          title: Text('Detail'),
-          centerTitle: true,
-          backgroundColor: Colors.green),
-      body: getObservableList(context),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        title: Text('başlık'),
+      ),
+      body: buildObservableBody(context),
     );
   }
 
-  getObservableList(BuildContext context) {
+  buildObservableBody(BuildContext context) {
     return Obx(() =>
         ctrl.isLoading.value ? buildCenterLoading() : buildListBody(context));
   }
@@ -47,7 +50,7 @@ class TitleDetailView extends StatelessWidget {
         Container(
           margin: context.paddingLow,
           child: AutoSizeText(
-            ctrl.titleDetail.title ?? 'loading title',
+            ctrl.topic ?? 'loading title',
             maxLines: 2,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
@@ -56,10 +59,10 @@ class TitleDetailView extends StatelessWidget {
             color: Colors.black,
             alignment: Alignment.center,
             height: Get.height * 0.85,
-            child: ctrl.titleDetail.entries!.isEmpty
+            child: ctrl.entriesList.isEmpty
                 ? RefreshIndicator(
                     onRefresh: () async {
-                      await ctrl.getTitleDetail();
+                      await ctrl.getTitleDetail(topicId);
                     },
                     child: Stack(
                       children: <Widget>[
@@ -77,7 +80,7 @@ class TitleDetailView extends StatelessWidget {
                 : RefreshIndicator(
                     key: refreshKey,
                     onRefresh: () async {
-                      await ctrl.getTitleDetail();
+                      await ctrl.getTitleDetail(topicId);
                     },
                     child: Scrollbar(
                       isAlwaysShown: true,
@@ -85,9 +88,9 @@ class TitleDetailView extends StatelessWidget {
                       thickness: Get.width * 0.02,
                       child: ListView.builder(
                           physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: ctrl.titleDetail.entries?.length,
+                          itemCount: ctrl.entriesList.length,
                           itemBuilder: (context, index) {
-                            var titleDetail = ctrl.titleDetail.entries![index];
+                            var titleDetail = ctrl.entriesList[index];
                             return getCardListWidget(context, titleDetail);
                           }),
                     ),
@@ -96,15 +99,15 @@ class TitleDetailView extends StatelessWidget {
     );
   }
 
-  getCardListWidget(BuildContext context, Entries titleDetail) {
+  getCardListWidget(BuildContext context, Entry entry) {
     return Card(
       color: Colors.grey[800],
       child: Column(
         children: [
           ListTile(
-            title: Text(titleDetail.body ?? 'loading'),
+            title: Text(entry.content ?? 'loading'),
             subtitle: Text(
-              titleDetail.author ?? '',
+              entry.author?.nick ?? '',
               textAlign: TextAlign.right,
             ),
           ),
@@ -114,13 +117,30 @@ class TitleDetailView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(titleDetail.favCount ?? '0'),
-                Text(titleDetail.createdAt ?? 'tarih')
+                Text('fav = '+entry.favoriteCount.toString()),
+                Text(getFormattedDate(entry.created!)),//entry.created ?? 'tarih'
               ],
             ),
           )
         ],
       ),
     );
+  }
+
+  String getFormattedDate(String created) {
+    /// Convert into local date format.
+  var localDate = DateTime.parse(created).toLocal();
+
+  /// inputFormat - format getting from api or other func.
+  /// e.g If 2021-05-27 9:34:12.781341 then format must be yyyy-MM-dd HH:mm
+  /// If 27/05/2021 9:34:12.781341 then format must be dd/MM/yyyy HH:mm
+  var inputFormat = DateFormat('yyyy-MM-dd HH:mm');
+  var inputDate = inputFormat.parse(localDate.toString());
+
+  /// outputFormat - convert into format you want to show.
+  var outputFormat = DateFormat('dd/MM/yyyy HH:mm');
+  var outputDate = outputFormat.format(inputDate);
+
+  return outputDate.toString();
   }
 }

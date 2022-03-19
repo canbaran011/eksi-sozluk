@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eksi_sozluk/core/network/network_manager.dart';
+import 'package:eksi_sozluk/view/home/title/model/topic.dart';
+import 'package:eksi_sozluk/view/home/titledetail/view/titledetail_view.dart';
+import 'package:eksi_sozluk/view/maintab/service/maintab_service.dart';
+import 'package:eksi_sozluk/view/maintab/viewmodel/maintab_view_model.dart';
 import '../../../../core/network/vexana_manager.dart';
 import '../model/title_model.dart';
 import '../service/title_service.dart';
-import 'title_detail_view.dart';
 import '../viewmodel/title_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,8 +19,11 @@ class TitleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //ctrl.getTitleItems();
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.wb_sunny_outlined),
+          onPressed: () {},
+        ),
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.green,
@@ -27,6 +33,7 @@ class TitleView extends StatelessWidget {
   }
 
   buildObservableBody(BuildContext context) {
+    ctrl.getTitleItems();
     return Obx(() =>
         ctrl.isLoading.value ? buildCenterLoading() : buildListBody(context));
   }
@@ -61,7 +68,7 @@ class TitleView extends StatelessWidget {
                       child: Text(
                         'no title',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ],
@@ -79,23 +86,23 @@ class TitleView extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: ctrl.titleList.length,
                       itemBuilder: (context, index) {
-                        var person = ctrl.titleList[index];
-                        return getCardListWidget(context, person);
+                        var title = ctrl.titleList[index];
+                        return getCardListWidget(context, title);
                       }),
                 ),
               ));
   }
 
-  Widget getCardListWidget(BuildContext context, TitleModel title) {
+  Widget getCardListWidget(BuildContext context, Topic title) {
     return Card(
       color: Colors.grey[850],
       child: Column(
         children: <Widget>[
           ListTile(
             onTap: () async {
-              ctrl.slug.value = title.slug!;
-              ctrl.getTitleDetail();
-              Get.to(TitleDetailView());
+              Get.to(TitleDetailView(
+                topicId: title.topicId.toString(),
+              ));
             },
             isThreeLine: true,
             leading: Icon(
@@ -104,7 +111,7 @@ class TitleView extends StatelessWidget {
             ),
             title: AutoSizeText(title.title ?? '',
                 maxLines: 2, style: TextStyle(color: Colors.white38)),
-            subtitle: Text(title.entryCount ?? ''),
+            subtitle: Text(title.day ?? ''),
           ),
         ],
       ),
