@@ -17,19 +17,6 @@ class MainTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<MainTabViewModel>(builder: (controller) {
       return Scaffold(
-        floatingActionButton: Container(
-          width: 100,
-          height: 100,
-          child: FittedBox(
-            child: FloatingActionButton(
-              backgroundColor: Colors.green,
-              onPressed: () {
-                ctrl.getAnonymousAccessToken();
-              },
-              child: Icon(Icons.wb_sunny),
-            ),
-          ),
-        ),
         body: SafeArea(
             child: IndexedStack(
           index: ctrl.tabIndex,

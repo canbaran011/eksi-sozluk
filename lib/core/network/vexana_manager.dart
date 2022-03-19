@@ -22,9 +22,7 @@ class VexanaManager {
     },
     interceptor: InterceptorsWrapper(onError: (DioError e, handler) async {
       //FILE LOGGER FOR ERRORS WILL BE COME
-
       print('NETWORK MANAGER ERROR HAPPENED');
-
       return handler.next(e);
     }),
     options: BaseOptions(

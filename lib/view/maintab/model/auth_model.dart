@@ -1,23 +1,26 @@
-
-import 'package:eksi_sozluk/view/maintab/model/auth_data.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:eksi_sozluk/view/maintab/model/authdata.dart';
 import 'package:vexana/vexana.dart';
 
-part 'auth_model.g.dart';
+class AuthModel extends INetworkModel<AuthModel>{
+  AuthModel({
+    this.success,
+    this.message,
+    this.data,
+  });
 
-@JsonSerializable()
-class AuthModel extends INetworkModel<AuthModel> {
   bool? success;
   String? message;
   AuthData? data;
 
-  @override
-  AuthModel fromJson(Map<String, dynamic> json) {
-    return _$AuthModelFromJson(json);
-  }
+  AuthModel fromJson(Map<String, dynamic> json) => AuthModel(
+        success: json["Success"] == null ? null : json["Success"],
+        message: json["Message"] == null ? null : json["Message"],
+        data: json["Data"] == null ? null : AuthData.fromJson(json["Data"]),
+      );
 
-  @override
-  Map<String, dynamic>? toJson() {
-    return _$AuthModelToJson(this);
-  }
+  Map<String, dynamic> toJson() => {
+        "Success": success == null ? null : success,
+        "Message": message == null ? null : message,
+        "Data": data == null ? null : data!.toJson(),
+      };
 }

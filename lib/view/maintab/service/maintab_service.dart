@@ -1,14 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:eksi_sozluk/core/lang/app_translations.dart';
 import 'package:eksi_sozluk/core/network/network_helper.dart';
-import 'package:eksi_sozluk/view/maintab/model/auth_data.dart';
 import 'package:eksi_sozluk/view/maintab/model/auth_model.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vexana/vexana.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
 
 abstract class IMainTabService {
   INetworkManager networkManager;
@@ -25,16 +22,11 @@ class MainTabService extends IMainTabService with NetworkHelper {
   Future<void> fetchAuthToken() async {
     Response response;
     var dio = Dio();
-
     var uuid = Uuid();
     String v1 = uuid.v1();
     box.write('csecret', v1);
     String v2 = uuid.v1();
     box.write('cunique', v2);
-    print('---------------------------------------------');
-    print(v1);
-    print('*-*-*-*-*');
-    print(v2);
 
     response = await dio.post(
       'https://api.eksisozluk.com/v2/account/anonymoustoken',
@@ -56,26 +48,25 @@ class MainTabService extends IMainTabService with NetworkHelper {
       }),
     );
 
-    print(response.data);
-
     try {
-      if (response.statusCode == 200) {
-        print('=====================================');
+      var auth = jsonEncode(response.data);
+      Map<String, dynamic> authModel = jsonDecode(auth);
 
-        var user = jsonEncode(response.data);
-        Map<String, dynamic> suser = jsonDecode(user);
-
-        var jwtToken = suser['Data']['access_token'].toString();
-        box.write('jwt', jwtToken);
-        print(jwtToken);
-      } else {
-        print(response.data?.success ?? 'INSIDE ELSE BOS BOS BOS');
-      }
+      var jwtToken = authModel['Data']['access_token'].toString();
+      box.write('jwt', jwtToken);
+      
     } catch (e) {
-      print(e.toString());
+      print(e);
     }
+
+//  headers: {
+//               'Content-Type': 'application/x-www-form-urlencoded'}
   }
 }
+
+
+
+
 
 
     //final response = await networkManager.send
@@ -94,3 +85,23 @@ class MainTabService extends IMainTabService with NetworkHelper {
     //     });
 
 
+
+    // final response = await networkManager.send<AuthModel, AuthModel>(
+    //     '/v2/account/anonymoustoken',
+    //     parseModel: AuthModel(),
+    //     method: RequestType.POST,
+    //     options: Options(contentType: Headers.formUrlEncodedContentType, headers: {
+    //     'Host': 'api.eksisozluk.com',
+    //     'User-Agent': 'okhttp/3.12.1',
+    //     'Connection': 'close',
+    //     'Accept-Encoding': 'gzip, deflate',
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   }),
+    //     data: {
+    //       'Platform': 'g',
+    //       'Version': '2.0.0',
+    //       'Build': '51',
+    //       'Api-Secret': '68f779c5-4d39-411a-bd12-cbcc50dc83dd',
+    //       'Client-Secret': v1,
+    //       'ClientUniqueId': v2,
+    //     });

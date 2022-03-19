@@ -20,10 +20,6 @@ class TitleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.wb_sunny_outlined),
-          onPressed: () {},
-        ),
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.green,

@@ -48,11 +48,14 @@ class TitleDetailView extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: context.paddingLow,
+          width: Get.width,
+          alignment: Alignment.center,
+          color: Colors.grey,
+          padding: context.paddingLow,
           child: AutoSizeText(
             ctrl.topic ?? 'loading title',
             maxLines: 2,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold),//,backgroundColor: Colors.grey
           ),
         ),
         Container(
