@@ -1,5 +1,5 @@
-
 import 'package:eksi_sozluk/core/network/vexana_manager.dart';
+import 'package:eksi_sozluk/view/home/login/view/login_view.dart';
 import 'package:eksi_sozluk/view/home/suser/suser_vier.dart';
 import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
 import 'package:eksi_sozluk/view/maintab/service/maintab_service.dart';
@@ -10,8 +10,8 @@ import '../viewmodel/maintab_view_model.dart';
 class MainTabView extends StatelessWidget {
   MainTabView({Key? key}) : super(key: key);
 
-  final ctrl = Get.put(MainTabViewModel(
-      MainTabService(VexanaManager.instance.networkManager)));
+  final ctrl = Get.put(
+      MainTabViewModel(MainTabService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class MainTabView extends StatelessWidget {
             TitleView(),
             SuserView(),
             SuserView(),
-            SuserView(),
+            LoginView(),
           ],
         )),
         bottomNavigationBar: getBottomNavigationBar(context),
@@ -64,13 +64,13 @@ class MainTabView extends StatelessWidget {
             ),
             label: 'ara'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.wb_sunny, color: Colors.grey.shade400, size: 30),
+            icon: Icon(Icons.person, color: Colors.grey.shade400, size: 30),
             activeIcon: Icon(
-              Icons.wb_sunny,
+              Icons.person,
               color: Colors.green,
               size: 30,
             ),
-            label: 'baslik4'),
+            label: 'kullanıcı'),
       ],
       currentIndex: ctrl.tabIndex,
       onTap: ctrl.changeTabIndex,

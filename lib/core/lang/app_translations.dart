@@ -9,4 +9,10 @@ abstract class AppTranslations {
 
 final Map<String, String> enUS = {'hello': 'Welcome !'};
 
-final Map<String, String> trTR = {'hello': 'Hoşgeldiniz !'};
+final Map<String, String> trTR = {'hello': 'Hoşgeldiniz !',
+'phoneInput':'kullanıcı adı',
+'phoneHint':'lütfen kullanıcı adını giriniz',
+'passwordInput':'parola',
+'loginTitle':'GİRİŞ',
+'emptyInputMessage':'Bu alan boş bırakılamaz.'
+};
