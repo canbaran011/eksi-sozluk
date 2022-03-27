@@ -5,8 +5,6 @@ import 'package:eksi_sozluk/core/network/network_helper.dart';
 import 'package:eksi_sozluk/view/maintab/model/auth_model.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vexana/vexana.dart';
-import 'package:uuid/uuid.dart';
-
 abstract class IMainTabService {
   INetworkManager networkManager;
   IMainTabService(this.networkManager);
@@ -22,11 +20,7 @@ class MainTabService extends IMainTabService with NetworkHelper {
   Future<void> fetchAuthToken() async {
     Response response;
     var dio = Dio();
-    var uuid = Uuid();
-    String v1 = uuid.v1();
-    box.write('csecret', v1);
-    String v2 = uuid.v1();
-    box.write('cunique', v2);
+
 
     response = await dio.post(
       'https://api.eksisozluk.com/v2/account/anonymoustoken',
@@ -35,8 +29,8 @@ class MainTabService extends IMainTabService with NetworkHelper {
         'Version': '2.0.0',
         'Build': '51',
         'Api-Secret': '68f779c5-4d39-411a-bd12-cbcc50dc83dd',
-        'Client-Secret': v1,
-        'ClientUniqueId': v2,
+        'Client-Secret': box.read('csecret'),
+        'ClientUniqueId': box.read('cunique'),
       },
       options:
           Options(contentType: Headers.formUrlEncodedContentType, headers: {

@@ -4,6 +4,7 @@ import 'package:eksi_sozluk/view/maintab/viewmodel/maintab_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:uuid/uuid.dart';
 import 'core/lang/app_translations.dart';
 import 'core/network/vexana_manager.dart';
 import 'view/maintab/view/maintab_view.dart';
@@ -17,8 +18,14 @@ Future<void> main() async {
 }
 
 _init() async {
+  final box = GetStorage();
   final mainCTRL = Get.put(
       MainTabViewModel(MainTabService(VexanaManager.instance.networkManager)));
+  var uuid = Uuid();
+  String v1 = uuid.v1();
+  box.write('csecret', v1);
+  String v2 = uuid.v1();
+  box.write('cunique', v2);
   await mainCTRL.getAnonymousAccessToken();
 }
 
