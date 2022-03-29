@@ -21,7 +21,7 @@ class LoginService extends ILoginService with NetworkHelper {
   final box = GetStorage();
   @override
   Future<void> sendLoginService(String username, String password) async {
-    final response = await networkManager.send<dynamic, dynamic>('/Token',
+    final response = await networkManager.send<LoginModel, LoginModel>('/Token',
         parseModel: LoginModel(),
         method: RequestType.POST,
         data: {
