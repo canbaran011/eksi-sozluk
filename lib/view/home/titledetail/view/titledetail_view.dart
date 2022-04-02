@@ -108,10 +108,11 @@ class TitleDetailView extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text(entry.content ?? 'loading'),
+            title: Text(entry.content ?? 'loading',style: TextStyle(color: Colors.white54)),
             subtitle: Text(
               entry.author?.nick ?? '',
               textAlign: TextAlign.right,
+              style: TextStyle(color: Colors.white60),
             ),
           ),
           Container(

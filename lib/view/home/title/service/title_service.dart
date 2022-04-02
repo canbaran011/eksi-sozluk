@@ -34,9 +34,7 @@ class TitleService extends ITitleService {
     return response.data;
   }
 
-  // @override
-  // Future<TitleDetailModel?> fetchTitleDetail(String slug) async {
 
-  // }
+
 
 }
