@@ -33,8 +33,9 @@ class MainTabView extends StatelessWidget {
   }
 
   getBottomNavigationBar(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.black,
+    return BottomNavigationBar( 
+  type: BottomNavigationBarType.fixed, // Fixed 
+  backgroundColor: Colors.black, 
       elevation: 10.0,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(

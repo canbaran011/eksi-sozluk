@@ -54,14 +54,15 @@ class TitleDetailView extends StatelessWidget {
           padding: context.paddingLow,
           child: AutoSizeText(
             ctrl.topic ?? 'loading title',
-            maxLines: 2,
-            style: TextStyle(fontWeight: FontWeight.bold),//,backgroundColor: Colors.grey
+            maxLines: 1,
+            style: TextStyle(
+                fontWeight: FontWeight.bold), //,backgroundColor: Colors.grey
           ),
         ),
         Container(
             color: Colors.black,
             alignment: Alignment.center,
-            height: Get.height * 0.85,
+            height: Get.height * 0.80,
             child: ctrl.entriesList.isEmpty
                 ? RefreshIndicator(
                     onRefresh: () async {
@@ -98,6 +99,21 @@ class TitleDetailView extends StatelessWidget {
                           }),
                     ),
                   )),
+        Container(
+          color: Colors.grey.shade700,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios),color: Colors.green,),
+              Text(
+                'page 1',
+                textAlign: TextAlign.center,
+              ),
+              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios),color: Colors.green)
+            ],
+          ),
+        )
       ],
     );
   }
@@ -108,7 +124,8 @@ class TitleDetailView extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text(entry.content ?? 'loading',style: TextStyle(color: Colors.white54)),
+            title: Text(entry.content ?? 'loading',
+                style: TextStyle(color: Colors.white54)),
             subtitle: Text(
               entry.author?.nick ?? '',
               textAlign: TextAlign.right,
@@ -121,11 +138,12 @@ class TitleDetailView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('fav = '+entry.favoriteCount.toString()),
-                Text(getFormattedDate(entry.created!)),//entry.created ?? 'tarih'
+                Text('fav = ' + entry.favoriteCount.toString()),
+                Text(getFormattedDate(
+                    entry.created!)), //entry.created ?? 'tarih'
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -133,18 +151,18 @@ class TitleDetailView extends StatelessWidget {
 
   String getFormattedDate(String created) {
     /// Convert into local date format.
-  var localDate = DateTime.parse(created).toLocal();
+    var localDate = DateTime.parse(created).toLocal();
 
-  /// inputFormat - format getting from api or other func.
-  /// e.g If 2021-05-27 9:34:12.781341 then format must be yyyy-MM-dd HH:mm
-  /// If 27/05/2021 9:34:12.781341 then format must be dd/MM/yyyy HH:mm
-  var inputFormat = DateFormat('yyyy-MM-dd HH:mm');
-  var inputDate = inputFormat.parse(localDate.toString());
+    /// inputFormat - format getting from api or other func.
+    /// e.g If 2021-05-27 9:34:12.781341 then format must be yyyy-MM-dd HH:mm
+    /// If 27/05/2021 9:34:12.781341 then format must be dd/MM/yyyy HH:mm
+    var inputFormat = DateFormat('yyyy-MM-dd HH:mm');
+    var inputDate = inputFormat.parse(localDate.toString());
 
-  /// outputFormat - convert into format you want to show.
-  var outputFormat = DateFormat('dd/MM/yyyy HH:mm');
-  var outputDate = outputFormat.format(inputDate);
+    /// outputFormat - convert into format you want to show.
+    var outputFormat = DateFormat('dd/MM/yyyy HH:mm');
+    var outputDate = outputFormat.format(inputDate);
 
-  return outputDate.toString();
+    return outputDate.toString();
   }
 }

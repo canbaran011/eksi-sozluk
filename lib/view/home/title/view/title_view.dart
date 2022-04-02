@@ -105,7 +105,7 @@ class TitleView extends StatelessWidget {
               Icons.book,
               color: Colors.green,
             ),
-            title: AutoSizeText(title.title ?? '',
+            title: AutoSizeText(title.title ?? '',maxFontSize: 15,minFontSize: 10,
                 maxLines: 2, style: TextStyle(color: Colors.white38)),
             subtitle: Text(title.day ?? ''),
           ),
