@@ -7,7 +7,7 @@ abstract class ITitleDetailService {
   INetworkManager networkManager;
   ITitleDetailService(this.networkManager);
 
-  Future<TitleDetailModel?> fetchTitleDetails(String topicId);
+  Future<TitleDetailModel?> fetchTitleDetails(String topicId,int pageNumber);
 }
 
 class TitleDetailService extends ITitleDetailService with NetworkHelper {
@@ -16,9 +16,9 @@ class TitleDetailService extends ITitleDetailService with NetworkHelper {
 
 
   @override
-  Future<TitleDetailModel?> fetchTitleDetails(String topicId) async {
+  Future<TitleDetailModel?> fetchTitleDetails(String topicId, int pageNumber) async {
     final response = await networkManager
-        .send<TitleDetailModel, TitleDetailModel>('/v2/topic/' + topicId,
+        .send<TitleDetailModel, TitleDetailModel>('/v2/topic/' + topicId + '/?p='+ pageNumber.toString() ,
             parseModel: TitleDetailModel(),
             method: RequestType.GET,
             options: Options(headers: {

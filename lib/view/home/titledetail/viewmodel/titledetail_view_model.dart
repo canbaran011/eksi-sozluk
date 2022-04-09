@@ -8,17 +8,18 @@ class TitleDetailViewModel extends GetxController {
   TitleDetailViewModel(this.titleDetailService);
 
   var isLoading = false.obs;
+  var pageNumber = 1.obs;
   String? topic;
-  
+
   var entriesList = <Entry>[].obs;
 
   changeLoading() {
     isLoading.value = !isLoading.value;
   }
 
-  Future<void> getTitleDetail(String topicIdStr) async {
+  Future<void> getTitleDetail(String topicIdStr,[int pNUM =1]) async {
     changeLoading();
-    final response = await titleDetailService.fetchTitleDetails(topicIdStr);
+    final response = await titleDetailService.fetchTitleDetails(topicIdStr,pNUM );
     if (response != null && response.data?.entries != null) {
       topic = response.data!.title!;
       entriesList.value = response.data!.entries!;

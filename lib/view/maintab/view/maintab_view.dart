@@ -56,7 +56,7 @@ class MainTabView extends StatelessWidget {
               color: Colors.green,
               size: 30,
             ),
-            label: 'debe'),
+            label: 'populer'),
         BottomNavigationBarItem(
             icon: Icon(Icons.search, color: Colors.grey.shade400, size: 30),
             activeIcon: Icon(

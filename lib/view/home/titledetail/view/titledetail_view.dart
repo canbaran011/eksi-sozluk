@@ -17,7 +17,8 @@ class TitleDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ctrl.getTitleDetail(topicId);
+    ctrl.pageNumber.value = 1;
+    ctrl.getTitleDetail(topicId, 1);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -105,12 +106,25 @@ class TitleDetailView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios),color: Colors.green,),
-              Text(
-                'page 1',
-                textAlign: TextAlign.center,
+              IconButton(
+                onPressed: () async {
+                  ctrl.pageNumber.value -= 1;
+                  await ctrl.getTitleDetail(topicId, ctrl.pageNumber.value);
+                },
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.green,
               ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios),color: Colors.green)
+              Obx(() => Text(
+                    ctrl.pageNumber.value.toString(),
+                    textAlign: TextAlign.center,
+                  )),
+              IconButton(
+                  onPressed: () async {
+                    ctrl.pageNumber.value += 1;
+                    await ctrl.getTitleDetail(topicId, ctrl.pageNumber.value);
+                  },
+                  icon: Icon(Icons.arrow_forward_ios),
+                  color: Colors.green)
             ],
           ),
         )

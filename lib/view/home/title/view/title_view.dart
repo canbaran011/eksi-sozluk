@@ -4,6 +4,7 @@ import 'package:eksi_sozluk/view/home/title/model/topic.dart';
 import 'package:eksi_sozluk/view/home/titledetail/view/titledetail_view.dart';
 import 'package:eksi_sozluk/view/maintab/service/maintab_service.dart';
 import 'package:eksi_sozluk/view/maintab/viewmodel/maintab_view_model.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../../core/network/vexana_manager.dart';
 import '../model/title_model.dart';
 import '../service/title_service.dart';
@@ -13,12 +14,13 @@ import 'package:get/get.dart';
 
 class TitleView extends StatelessWidget {
   TitleView({Key? key}) : super(key: key);
-
+  final box = GetStorage();
   final ctrl = Get.put(
       TitleViewModel(TitleService(VexanaManager.instance.networkManager)));
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -100,8 +102,11 @@ class TitleView extends StatelessWidget {
               Icons.book,
               color: Colors.green,
             ),
-            title: AutoSizeText(title.title ?? '',maxFontSize: 15,minFontSize: 10,
-                maxLines: 2, style: TextStyle(color: Colors.white38)),
+            title: AutoSizeText(title.title ?? '',
+                maxFontSize: 15,
+                minFontSize: 10,
+                maxLines: 2,
+                style: TextStyle(color: Colors.white38)),
             subtitle: Text(title.day ?? ''),
           ),
         ],
