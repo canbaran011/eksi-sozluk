@@ -1,6 +1,7 @@
 import 'package:eksi_sozluk/core/network/vexana_manager.dart';
 import 'package:eksi_sozluk/view/home/login/view/login_view.dart';
-import 'package:eksi_sozluk/view/home/suser/suser_vier.dart';
+import 'package:eksi_sozluk/view/home/popular/view/popular_view.dart';
+
 import 'package:eksi_sozluk/view/home/title/view/title_view.dart';
 import 'package:eksi_sozluk/view/maintab/service/maintab_service.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,8 @@ class MainTabView extends StatelessWidget {
           index: ctrl.tabIndex,
           children: [
             TitleView(),
-            SuserView(),
-            SuserView(),
+            PopularView(),
+            PopularView(),
             LoginView(),
           ],
         )),

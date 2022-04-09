@@ -75,17 +75,12 @@ class TitleView extends StatelessWidget {
                 onRefresh: () async {
                   await ctrl.getTitleItems();
                 },
-                child: Scrollbar(
-                  isAlwaysShown: true,
-                  radius: Radius.circular(50),
-                  thickness: Get.width * 0.02,
-                  child: ListView.builder(
-                      itemCount: ctrl.titleList.length,
-                      itemBuilder: (context, index) {
-                        var title = ctrl.titleList[index];
-                        return getCardListWidget(context, title);
-                      }),
-                ),
+                child: ListView.builder(
+                    itemCount: ctrl.titleList.length,
+                    itemBuilder: (context, index) {
+                      var title = ctrl.titleList[index];
+                      return getCardListWidget(context, title);
+                    }),
               ));
   }
 

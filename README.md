@@ -1,6 +1,6 @@
 # eksi_sozluk
 
-A new Flutter project.
+A new Flutter project. (still in development)
 
 <p>
 <img src="https://raw.githubusercontent.com/canbaran011/eksi-sozluk/master/es1.jpg" width="200"/>
